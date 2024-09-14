@@ -74,7 +74,7 @@ def crop_boxes(image_folder, start_page, end_page, min_box_size, padding, json_p
         _, binary = cv2.threshold(gray, 200, 255, cv2.THRESH_BINARY_INV)
         # 排除右下角的QR碼區域
         h, w = binary.shape
-        qr_size = int(min(h, w) * 0.2)  # 假設QR碼大約佔圖片的20%
+        qr_size = int(min(h, w) * 0.15)  # 假設QR碼大約佔圖片的20%
         binary[-qr_size:, -qr_size:] = 0  # 將右下角區域設為黑色
         # 使用輪廓檢測方框
         contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -129,13 +129,13 @@ def crop_boxes(image_folder, start_page, end_page, min_box_size, padding, json_p
 
 
 if __name__ == "__main__":
-    image_folder = "C:/Users/cg/Desktop/113598097/emba_font/02_crop_paper-main/rotated_113598097"
+    image_folder = "C:/Users/LAB1223/Desktop/02_crop_paper/rotated_113598097" #輸入rotated資料夾的路徑
     start_page = int(input("Enter start page: "))  # 起始頁數
     end_page = int(input("Enter end page: "))      # 結束頁數
     min_box_size = 200  # 設定閾值，只保留寬和高都大於等於這個值的方框
     min_area_threshold = 10
     padding = 20  # 內縮的像素數量
     json_path = "CP950.json"  # 請替換為你的 JSON 檔案路徑
-    unicode_num = 5345
+    unicode_num = 1766
 
     crop_boxes(image_folder, start_page, end_page, min_box_size, padding, json_path, unicode_num)
